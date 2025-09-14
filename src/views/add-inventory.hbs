@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Inventory</title>
+    <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Add Inventory</h1>
+        <button onclick="window.location.href='/admin'">Back to Admin Page</button>
+    </div>
+    <div class="content">
+        <form action="/admin/add-inventory" method="POST">
+            <label for="warehouse-id">Warehouse ID:</label>
+            <input type="text" id="warehouse-id" name="WarehouseID" required><br>
+            <label for="book-isbn">Book ISBN:</label>
+            <input type="text" id="book-isbn" name="BookISBN" required><br>
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="Quantity" required><br>
+            <button type="submit">Add Inventory</button>
+        </form>
+    </div>
+</body>
+</html>

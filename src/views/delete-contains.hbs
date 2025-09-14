@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Contains</title>
+    <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Delete Contains Entry</h1>
+        <button onclick="window.location.href='/admin'">Back to Admin Page</button>
+    </div>
+    <div class="content">
+        <form action="/admin/delete-contains" method="POST">
+            <label for="BasketID">Select Basket:</label>
+            <select id="BasketID" name="BasketID" required>
+                {{#each contains}}
+                <option value="{{this.BasketID}}">Basket {{this.BasketID}}</option>
+                {{/each}}
+            </select><br>
+            <label for="BookISBN">Select Book:</label>
+            <select id="BookISBN" name="BookISBN" required>
+                {{#each contains}}
+                <option value="{{this.BookISBN}}">{{this.BookISBN}}</option>
+                {{/each}}
+            </select><br>
+            <button type="submit">Delete Entry</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Award</title>
+    <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Edit an Award</h1>
+        <button onclick="window.location.href='/admin'">Back to Admin Page</button>
+    </div>
+    <div class="content">
+        <form action="/admin/edit-award" method="POST">
+            <label for="award-id">Select Award:</label>
+            <select id="award-id" name="AwardID" required>
+                {{#each awards}}
+                <option value="{{this.AwardID}}">{{this.Name}}</option>
+                {{/each}}
+            </select><br>
+            <label for="name">New Name:</label>
+            <input type="text" id="name" name="Name" required><br>
+            <label for="year">New Year:</label>
+            <input type="number" id="year" name="Year" required><br>
+            <button type="submit">Edit Award</button>
+        </form>
+    </div>
+</body>
+</html>

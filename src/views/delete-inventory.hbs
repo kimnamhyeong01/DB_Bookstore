@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Inventory</title>
+    <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Delete Inventory</h1>
+        <button onclick="window.location.href='/admin'">Back to Admin Page</button>
+    </div>
+    <div class="content">
+        <form action="/admin/delete-inventory" method="POST">
+            <label for="warehouse-id">Select Warehouse:</label>
+            <select id="warehouse-id" name="WarehouseID" required>
+                {{#each inventories}}
+                <option value="{{this.WarehouseID}}">Warehouse {{this.WarehouseID}}</option>
+                {{/each}}
+            </select><br>
+            <label for="book-isbn">Select Book:</label>
+            <select id="book-isbn" name="BookISBN" required>
+                {{#each inventories}}
+                <option value="{{this.BookISBN}}">{{this.BookISBN}}</option>
+                {{/each}}
+            </select><br>
+            <button type="submit">Delete Inventory</button>
+        </form>
+    </div>
+</body>
+</html>

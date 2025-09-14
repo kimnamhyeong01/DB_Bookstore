@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Author</title>
+    <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Delete an Author</h1>
+        <button onclick="window.location.href='/admin'">Back to Admin Page</button>
+    </div>
+    <div class="content">
+        <form action="/admin/delete-author" method="POST">
+            <label for="author-id">Select Author:</label>
+            <select id="author-id" name="AuthorID" required>
+                {{#each authors}}
+                <option value="{{this.AuthorID}}">{{this.Name}}</option>
+                {{/each}}
+            </select><br>
+            <button type="submit">Delete Author</button>
+        </form>
+    </div>
+</body>
+</html>

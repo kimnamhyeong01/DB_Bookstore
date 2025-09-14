@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Award</title>
+    <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Delete an Award</h1>
+        <button onclick="window.location.href='/admin'">Back to Admin Page</button>
+    </div>
+    <div class="content">
+        <form action="/admin/delete-award" method="POST">
+            <label for="award-id">Select Award:</label>
+            <select id="award-id" name="AwardID" required>
+                {{#each awards}}
+                <option value="{{this.AwardID}}">{{this.Name}}</option>
+                {{/each}}
+            </select><br>
+            <button type="submit">Delete Award</button>
+        </form>
+    </div>
+</body>
+</html>

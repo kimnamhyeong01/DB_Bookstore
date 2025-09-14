@@ -1,0 +1,97 @@
+<head>
+  <link rel="stylesheet" type="text/css" href="main.css" />
+  <link
+    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+  />
+  <script>
+    const logout = () => {
+      window.location.href = "/logout";
+    };
+    const moveToSearch = () => {
+      window.location.href = "/search";
+    };
+    const moveToReservations = () => {
+      window.location.href = "/reservation";
+    };
+    const moveToBasket = () => {
+      window.location.href = "/shoppingBasket";
+    };
+  </script>
+</head>
+<div class="header">
+  <div class="header-logo">
+    <span class="logo-text">Bookstore Management System</span>
+  </div>
+
+  <div class="header-info">
+    {{#if user}}
+      <span>Welcome, {{user.Name}} (Role: {{user.Role}})</span>
+      <button class="logout" onclick="logout()">Logout</button>
+    {{else}}
+      <button onclick="window.location.href='/login'">Login</button>
+    {{/if}}
+  </div>
+</div>
+
+<div class="content">
+  <div class="side">
+    <div class="side-frame">
+      {{#if user}}
+        <div class="userinfo">{{user.Name}}</div>
+      {{/if}}
+    </div>
+    <div class="side-menu">
+      {{#if user}}
+        {{#ifCond user.Role '==' 'Admin'}}
+          <div class="side-menu_list">
+            <span>Manage Books</span>
+            <span class="material-icons">library_books</span>
+          </div>
+          <div class="side-menu_list">
+            <span>Manage Inventory</span>
+            <span class="material-icons">inventory</span>
+          </div>
+        {{/ifCond}}
+        {{#ifCond user.Role '==' 'Customer'}}
+          <div class="side-menu_list" onclick="moveToSearch()">
+            <span>Search Books</span>
+            <span class="material-icons">search</span>
+          </div>
+          <div class="side-menu_list" onclick="moveToReservations()">
+            <span>My Reservations</span>
+            <span class="material-icons">event</span>
+          </div>
+          <div class="side-menu_list" onclick="moveToBasket()">
+            <span>Shopping Basket</span>
+            <span class="material-icons">shopping_cart</span>
+          </div>
+        {{/ifCond}}
+      {{else}}
+        <p>Please log in to access these features.</p>
+      {{/if}}
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="main-top">
+      {{#if user}}
+        {{#ifCond user.Role '==' 'Admin'}}
+          <h2>Admin Dashboard</h2>
+          <p>Use the side menu to manage books and inventory.</p>
+        {{/ifCond}}
+        {{#ifCond user.Role '==' 'Customer'}}
+          <h2>Welcome to the Bookstore</h2>
+          <p>Select an option from the side menu to get started.</p>
+        {{/ifCond}}
+      {{else}}
+        <h2>Welcome to the Bookstore Management System</h2>
+        <p>Please log in to continue.</p>
+      {{/if}}
+    </div>
+  </div>
+</div>

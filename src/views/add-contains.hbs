@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Contains</title>
+    <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Add Contains Entry</h1>
+        <button onclick="window.location.href='/admin'">Back to Admin Page</button>
+    </div>
+    <div class="content">
+        <form action="/admin/add-contains" method="POST">
+            <!-- BasketID 입력 -->
+            <label for="BasketID">Enter Basket ID:</label>
+            <input type="text" id="BasketID" name="BasketID" required placeholder="Enter Basket ID">
+            <br>
+
+            <!-- Book Selection -->
+            <label for="BookISBN">Select Book:</label>
+            <select id="BookISBN" name="BookISBN" required>
+                {{#each books}}
+                <option value="{{this.ISBN}}">
+                    {{this.Title}} - Stock: {{this.Stock}}
+                </option>
+                {{/each}}
+            </select>
+            <br>
+
+            <!-- Number Input -->
+            <label for="Number">Number:</label>
+            <input type="number" id="Number" name="Number" min="1" required placeholder="Enter Quantity">
+            <br>
+
+            <!-- Submit Button -->
+            <button type="submit">Add Entry</button>
+        </form>
+    </div>
+</body>
+</html>

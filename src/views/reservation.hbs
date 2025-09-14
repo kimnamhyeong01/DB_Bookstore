@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Reservations</title>
+  <link rel="stylesheet" href="/main.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    h1, h2, h3 {
+      text-align: center;
+      color: #333;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    table th, table td {
+      border: 1px solid #ddd;
+      text-align: center;
+      padding: 10px;
+    }
+
+    table th {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    table tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    form {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    input, button {
+      padding: 10px;
+      font-size: 14px;
+      border-radius: 4px;
+    }
+
+    input[type="text"], input[type="date"], input[type="time"] {
+      width: auto;
+      border: 1px solid #ddd;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .no-reservations {
+      text-align: center;
+      color: #777;
+      margin-top: 20px;
+    }
+
+    .search-results {
+      margin-top: 30px;
+    }
+
+    .search-results ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .search-results li {
+      margin: 10px 0;
+      padding: 10px;
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .search-results form {
+      display: flex;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Your Reservations</h1>
+
+    {{#if hasReservations}}
+      <table>
+        <thead>
+          <tr>
+            <th>Reservation ID</th>
+            <th>Book Title</th>
+            <th>Reservation Date</th>
+            <th>Pickup Time</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each reservations}}
+            <tr>
+              <td>{{this.ReservationID}}</td>
+              <td>{{this.Title}}</td>
+              <td>{{this.ReservationDate}}</td>
+              <td>{{this.PickupTime}}</td>
+              <td>
+                <form action="/reservation/cancel/{{this.ReservationID}}" method="POST" style="display: inline;">
+                  <button type="submit">Cancel</button>
+                </form>
+                <form action="/reservation/update/{{this.ReservationID}}" method="POST" style="display: inline;">
+                  <input type="time" name="newPickupTime" required />
+                  <button type="submit">Update</button>
+                </form>
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    {{else}}
+      <p class="no-reservations">You currently have no reservations.</p>
+    {{/if}}
+
+    <h2>Search for Books to Reserve</h2>
+    <form action="/reservation/search" method="POST">
+      <input type="text" name="keyword" placeholder="Search by title, category..." required />
+      <button type="submit">Search</button>
+    </form>
+
+    {{#if searchResults}}
+      <div class="search-results">
+        <h3>Search Results</h3>
+        <ul>
+          {{#each searchResults}}
+            <li>
+              {{this.Title}} (Stock: {{this.Stock}})
+              <form action="/reservation/add" method="POST">
+                <input type="hidden" name="bookISBN" value="{{this.ISBN}}" />
+                <input type="date" name="reservationDate" required />
+                <label for="pickupTime">Pickup Time:</label>
+                <input type="time" name="pickupTime" required />
+                <button type="submit">Reserve</button>
+              </form>
+            </li>
+          {{/each}}
+        </ul>
+      </div>
+    {{/if}}
+  </div>
+</body>
+</html>
